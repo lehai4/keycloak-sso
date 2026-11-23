@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Plugin Keycloak: đăng nhập bằng bảng nhân viên có sẵn (sync_data_hi_time_sheet.sync_nhan_vien).
+  Build bằng Docker (xem keycloak/Dockerfile), không cần cài Java/Maven trên máy.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>vn.cty.keycloak</groupId>
+  <artifactId>nhanvien-storage</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+
+  <properties>
+    <maven.compiler.release>21</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- Phải khớp phiên bản Keycloak đang chạy -->
+    <keycloak.version>26.4.7</keycloak.version>
+  </properties>
+
+  <dependencies>
+    <!-- Keycloak đã có sẵn khi chạy => provided -->
+    <dependency>
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-server-spi</artifactId>
+      <version>${keycloak.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-server-spi-private</artifactId>
+      <version>${keycloak.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-model-storage</artifactId>
+      <version>${keycloak.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.logging</groupId>
+      <artifactId>jboss-logging</artifactId>
+      <version>3.6.1.Final</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- Driver MySQL: đóng gói kèm plugin. Keycloak có file driver nhưng chỉ nạp driver của
+         loại DB mà chính Keycloak dùng, nên plugin không dùng được bản đó. -->
+    <dependency>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <version>8.3.0</version>
+      <exclusions>
+        <!-- protobuf chỉ dùng cho X DevAPI, JDBC thường không cần -->
+        <exclusion>
+          <groupId>com.google.protobuf</groupId>
+          <artifactId>protobuf-java</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- So khớp mật khẩu bcrypt (cùng chuẩn với thư viện bcrypt của Node mà tienich đang dùng).
+         Được đóng gói kèm vào jar. -->
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>0.4</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>nhanvien-storage</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.6.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals><goal>shade</goal></goals>
+            <configuration>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+              <relocations>
+                <relocation>
+                  <pattern>org.mindrot</pattern>
+                  <shadedPattern>vn.cty.keycloak.nhanvien.shaded.mindrot</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>com.mysql</pattern>
+                  <shadedPattern>vn.cty.keycloak.nhanvien.shaded.mysql</shadedPattern>
+                </relocation>
+              </relocations>
+              <filters>
+                <filter>
+                  <!-- Bỏ file đăng ký driver: plugin tự khởi tạo driver, không để Keycloak tự nạp -->
+                  <artifact>com.mysql:mysql-connector-j</artifact>
+                  <excludes>
+                    <exclude>META-INF/services/java.sql.Driver</exclude>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

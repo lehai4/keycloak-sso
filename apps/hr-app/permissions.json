@@ -1,0 +1,4 @@
+{
+  "NV001": { "phongBan": ["KHO"], "duyetPhep": false },
+  "NV002": { "phongBan": ["*"], "duyetPhep": true }
+}

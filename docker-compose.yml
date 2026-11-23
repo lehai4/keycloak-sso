@@ -1,0 +1,37 @@
+services:
+  keycloak:
+    # Keycloak 26.4 + plugin đọc bảng sync_nhan_vien (build từ keycloak/Dockerfile)
+    build: ./keycloak
+    image: sso-demo-keycloak
+    command: start-dev --import-realm
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HEALTH_ENABLED: "true"
+      # Kết nối bảng nhân viên: lấy từ file .env (xem .env.example).
+      # Chưa có .env => dùng DB giả "nv-test-db" (chạy kèm: docker compose --profile test-db up -d)
+      NV_DB_HOST: ${NV_DB_HOST:-nv-test-db}
+      NV_DB_PORT: ${NV_DB_PORT:-3306}
+      NV_DB_USER: ${NV_DB_USER:-sso_readonly}
+      NV_DB_PASSWORD: ${NV_DB_PASSWORD:-sso_readonly_test}
+      NV_DB_SCHEMA: ${NV_DB_SCHEMA:-sync_data_hi_time_sheet}
+      NV_DB_TABLE: ${NV_DB_TABLE:-sync_nhan_vien}
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      # Cho phép NV_DB_HOST=host.docker.internal khi MySQL chạy ngay trên máy này
+      - "host.docker.internal:host-gateway"
+    volumes:
+      # Realm, app, user mẫu: tự import khi khởi động lần đầu
+      - ./keycloak/import:/opt/keycloak/data/import:ro
+      # Giao diện trang đăng nhập công ty (start-dev tắt cache: sửa CSS/FTL xong F5 là thấy)
+      - ./keycloak/themes/cty:/opt/keycloak/themes/cty:ro
+
+  # Bảng nhân viên GIẢ để test khi chưa có tài khoản DB thật (mật khẩu mọi người: Test@123)
+  nv-test-db:
+    profiles: ["test-db"]
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: root-test-only
+    volumes:
+      - ./keycloak/test-db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro

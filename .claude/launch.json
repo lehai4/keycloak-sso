@@ -1,0 +1,7 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "web-a", "runtimeExecutable": "npm", "runtimeArgs": ["start", "--prefix", "web-a"], "port": 3011 },
+    { "name": "web-b", "runtimeExecutable": "npm", "runtimeArgs": ["start", "--prefix", "web-b"], "port": 3012 }
+  ]
+}

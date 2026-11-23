@@ -1,0 +1,210 @@
+/* ==========================================================
+   Giao diện trang đăng nhập công ty
+   ĐỔI MÀU THƯƠNG HIỆU: chỉ cần sửa các biến trong :root
+   ========================================================== */
+:root {
+  --cty-primary: #0b5c8a;        /* màu chính: nút, link, khối thương hiệu */
+  --cty-primary-dark: #08476b;   /* màu khi rê chuột / đậm hơn */
+  --cty-accent: #f59e0b;         /* màu nhấn: chấm đầu dòng */
+  --cty-bg: #f3f6f9;             /* nền trang */
+  --cty-card: #ffffff;           /* nền thẻ form */
+  --cty-text: #1f2937;
+  --cty-muted: #6b7280;
+  --cty-border: #d1d5db;
+  --cty-danger: #b91c1c;
+  --cty-success: #047857;
+  --cty-radius: 10px;
+  --cty-font: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html.cty-html, body.cty-body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--cty-bg);
+  color: var(--cty-text);
+  font-family: var(--cty-font);
+  font-size: 15px;
+}
+
+/* ---------- Bố cục 2 cột ---------- */
+.cty-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(320px, 5fr) 7fr;
+}
+
+.cty-brand {
+  background:
+    radial-gradient(circle at 85% 15%, rgba(255,255,255,.12) 0 120px, transparent 121px),
+    radial-gradient(circle at 10% 95%, rgba(255,255,255,.08) 0 180px, transparent 181px),
+    linear-gradient(150deg, var(--cty-primary) 0%, var(--cty-primary-dark) 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 48px 56px;
+}
+.cty-brand-inner { max-width: 420px; }
+.cty-logo-row { display: flex; align-items: center; gap: 14px; margin-bottom: 40px; }
+.cty-logo { width: 52px; height: 52px; border-radius: 12px; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+.cty-company { font-size: 18px; font-weight: 700; letter-spacing: .04em; }
+.cty-tagline { font-size: 28px; line-height: 1.3; font-weight: 600; margin: 0 0 24px; color: #fff; }
+.cty-features { list-style: none; padding: 0; margin: 0; }
+.cty-features li { position: relative; padding-left: 22px; margin: 12px 0; opacity: .92; line-height: 1.45; }
+.cty-features li::before {
+  content: ""; position: absolute; left: 0; top: .5em;
+  width: 9px; height: 9px; border-radius: 50%; background: var(--cty-accent);
+}
+
+.cty-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+/* ---------- Thẻ form ---------- */
+.cty-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--cty-card);
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 12px 32px rgba(15,40,70,.10);
+  padding: 36px 36px 24px;
+  box-sizing: border-box;
+}
+.cty-card-header { margin-bottom: 22px; }
+.cty-card #kc-page-title {
+  font-size: 24px; font-weight: 700; margin: 0; color: var(--cty-text); line-height: 1.3;
+}
+.cty-subtitle { margin: 6px 0 0; color: var(--cty-muted); }
+.cty-required-note { margin: 8px 0 0; color: var(--cty-muted); font-size: 13px; }
+.cty-card .required { color: var(--cty-danger); }
+
+/* Ô nhập */
+.cty-card .form-group { margin-bottom: 18px; }
+.cty-card label,
+.cty-card .pf-c-form__label {
+  display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; color: var(--cty-text);
+}
+.cty-card .pf-c-form-control,
+.cty-card input[type="text"],
+.cty-card input[type="password"],
+.cty-card input[type="email"] {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--cty-border);
+  border-radius: var(--cty-radius);
+  font-size: 15px;
+  font-family: inherit;
+  background: #fff;
+  box-sizing: border-box;
+  transition: border-color .15s, box-shadow .15s;
+}
+.cty-card .pf-c-form-control:focus,
+.cty-card input:focus {
+  outline: none;
+  border-color: var(--cty-primary);
+  box-shadow: 0 0 0 3px rgba(11,92,138,.18);
+}
+.cty-card .pf-c-form-control[aria-invalid="true"] { border-color: var(--cty-danger); }
+
+/* Ô mật khẩu + nút hiện/ẩn */
+.cty-card .pf-c-input-group { display: flex; position: relative; }
+.cty-card .pf-c-input-group .pf-c-form-control { padding-right: 48px; }
+.cty-card .pf-c-input-group .pf-c-button.pf-m-control {
+  position: absolute; right: 1px; top: 1px; bottom: 1px; width: 44px;
+  border: 0; background: transparent; color: var(--cty-muted);
+  border-radius: 0 var(--cty-radius) var(--cty-radius) 0; cursor: pointer;
+}
+.cty-card .pf-c-input-group .pf-c-button.pf-m-control::after { display: none; }
+.cty-card .pf-c-input-group .pf-c-button.pf-m-control:hover { color: var(--cty-primary); }
+
+/* Lỗi dưới ô nhập */
+.cty-card .pf-c-form__helper-text.pf-m-error,
+.cty-card #input-error {
+  display: block; margin-top: 6px; color: var(--cty-danger); font-size: 13.5px;
+}
+
+/* Ghi nhớ + quên mật khẩu */
+.cty-card .login-pf-settings {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+  font-size: 14px;
+}
+.cty-card .checkbox label { font-weight: 400; display: inline-flex; align-items: center; gap: 6px; margin: 0; }
+
+/* Nút */
+.cty-card .pf-c-button.pf-m-primary,
+.cty-card input[type="submit"].pf-c-button,
+.cty-card #kc-login {
+  width: 100%;
+  height: 46px;
+  border: 0;
+  border-radius: var(--cty-radius);
+  background: var(--cty-primary);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background .15s;
+}
+.cty-card .pf-c-button.pf-m-primary:hover,
+.cty-card #kc-login:hover { background: var(--cty-primary-dark); }
+.cty-card .pf-c-button.pf-m-primary::after { display: none; }
+.cty-card #kc-login:disabled { opacity: .7; cursor: progress; }
+.cty-card .pf-c-button.pf-m-secondary,
+.cty-card .btn-default {
+  border: 1px solid var(--cty-border); background: #fff; color: var(--cty-text);
+  border-radius: var(--cty-radius); height: 46px; padding: 0 18px; font-family: inherit; cursor: pointer;
+}
+.cty-card #kc-form-buttons { margin-top: 8px; margin-bottom: 4px; }
+
+/* Link */
+.cty-card a { color: var(--cty-primary); text-decoration: none; font-weight: 500; }
+.cty-card a:hover { text-decoration: underline; }
+
+/* Thông báo (sai mật khẩu, hết phiên, ...) */
+.cty-alert {
+  border-radius: var(--cty-radius);
+  padding: 11px 14px;
+  margin-bottom: 18px;
+  font-size: 14px;
+  border: 1px solid;
+}
+.cty-alert-error   { background: #fef2f2; border-color: #fecaca; color: var(--cty-danger); }
+.cty-alert-warning { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+.cty-alert-success { background: #ecfdf5; border-color: #a7f3d0; color: var(--cty-success); }
+.cty-alert-info    { background: #eff6ff; border-color: #bfdbfe; color: #1e40af; }
+.cty-alert .kc-feedback-text { font-weight: 500; }
+
+/* Tên đăng nhập đã nhập (các bước sau như OTP) */
+.cty-card #kc-username { display: flex; align-items: center; gap: 10px; margin: 0; }
+.cty-card #kc-attempted-username { font-size: 18px; font-weight: 600; margin: 0; }
+.cty-card .kc-tooltip-text { display: none; }
+
+/* Trang lỗi / thông tin */
+.cty-card #kc-error-message p, .cty-card #kc-info-message p { line-height: 1.55; }
+.cty-card .instruction { color: var(--cty-muted); }
+
+/* Chân thẻ */
+.cty-footer {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid #eef0f3;
+  text-align: center;
+  font-size: 13px;
+  color: var(--cty-muted);
+}
+.cty-footer p { margin: 4px 0; }
+
+/* ---------- Điện thoại / màn hình hẹp ---------- */
+@media (max-width: 860px) {
+  .cty-page { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .cty-brand { padding: 22px 16px; }
+  .cty-logo-row { margin-bottom: 0; }
+  .cty-logo { width: 40px; height: 40px; }
+  .cty-tagline, .cty-features { display: none; }
+  .cty-main { align-items: flex-start; padding: 24px 16px; }
+  .cty-card { padding: 28px 20px 18px; }
+}

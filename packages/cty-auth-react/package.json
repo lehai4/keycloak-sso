@@ -1,0 +1,13 @@
+{
+  "name": "@cty/auth-react",
+  "version": "0.1.0",
+  "description": "Đăng nhập SSO dùng chung (Keycloak/OIDC) cho các web React chạy ở trình duyệt",
+  "type": "module",
+  "main": "index.js",
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "dependencies": {
+    "oidc-client-ts": "^3.1.0"
+  }
+}

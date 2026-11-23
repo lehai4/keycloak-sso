@@ -1,0 +1,7 @@
+{
+  "name": "kho-app",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node server.js" },
+  "dependencies": { "@cty/auth": "*", "express": "^4.21.2" }
+}

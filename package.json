@@ -1,0 +1,15 @@
+{
+  "name": "sso-demo",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "keycloak": "docker compose --profile test-db up -d --build",
+    "kho": "npm start -w kho-app",
+    "hr": "npm start -w hr-app",
+    "web-a": "npm run dev --prefix web-a",
+    "web-b": "npm run dev --prefix web-b"
+  }
+}

@@ -1,0 +1,4 @@
+node_modules/
+.env
+keycloak/providers/*/target/
+dist/
