@@ -45,7 +45,10 @@ Trang SSO kiểm tra mã NV và mật khẩu **trực tiếp** trong bảng `syn
 
 - Nhân viên dùng **đúng mật khẩu hiện tại**. Đổi mật khẩu bên tienich thì SSO nhận **ngay**, vì mỗi lần đăng nhập đều đọc DB.
 - **Không sao chép** mật khẩu sang Keycloak; plugin chỉ chạy lệnh `SELECT`.
-- Dữ liệu trả về cho app: `manv` (đúng như trong DB), họ tên, email, `idBoPhan`.
+- Dữ liệu trả về cho app: `manv` (đúng như trong DB), họ tên, email, `idBoPhan` và `roles` **của riêng app đó**.
+  - **Không** gửi cả dòng nhân viên: token chỉ được ký chứ không mã hóa, ai cầm token cũng đọc được. Các cột nhạy cảm (CCCD, số tài khoản, số BHXH, điện thoại, lương...) web nào cần thì gọi API riêng có kiểm tra quyền.
+  - Claim `name` theo thứ tự Việt Nam ("Nguyễn Văn An") nhờ mapper `VnFullNameMapper` trong plugin; mapper có sẵn của Keycloak ghép ngược ("An Nguyễn Văn").
+  - Mỗi client để `fullScopeAllowed: false` nên token của App Kho không chứa quyền bên App Nhân sự.
 - **Người đã nghỉ việc (`isActived = 0`) không đăng nhập được**: trang SSO báo tài khoản đã ngừng hoạt động. Nếu người đó đang mở sẵn web thì bị thoát ở lần làm mới token kế tiếp (tối đa 5 phút). `isActived` để trống (NULL) vẫn cho vào.
 - Nhập sai mật khẩu 5 lần liên tiếp thì tài khoản bị tạm khóa vài phút (chống dò mật khẩu).
 - Họ tên, email chỉ đọc (sửa ở hệ thống gốc). Role theo từng app vẫn gán được trong trang quản trị Keycloak.
@@ -166,7 +169,7 @@ Trang đăng nhập dùng theme riêng `cty`: bên trái là khối thương hi�
 | Muốn đổi | Sửa file |
 |---|---|
 | Tên công ty, slogan, 3 dòng giới thiệu, dòng liên hệ IT, chân trang | `keycloak/themes/cty/login/theme.properties` (các dòng `cty...`) |
-| Logo, favicon | Thay `resources/img/logo.svg` và `favicon.svg` (giữ nguyên tên file) |
+| Logo, favicon | Thay `resources/img/logo.png` (vuông, 192px) và `favicon.png` (64px), giữ nguyên tên file |
 | Màu sắc, font chữ | Các biến `--cty-...` ở đầu `resources/css/cty.css` |
 | Câu chữ (vd. "Mã nhân viên", thông báo lỗi) | `messages/messages_vi.properties` |
 | Bố cục trang | `template.ftl` (khung chung) và `footer.ftl` |

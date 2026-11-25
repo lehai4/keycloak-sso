@@ -41,6 +41,13 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <!-- Lớp mapper OIDC (VnFullNameMapper); Keycloak đã có sẵn lúc chạy -->
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-services</artifactId>
+      <version>${keycloak.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.jboss.logging</groupId>
       <artifactId>jboss-logging</artifactId>
       <version>3.6.1.Final</version>

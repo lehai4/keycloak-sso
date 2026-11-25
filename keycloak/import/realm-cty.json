@@ -95,8 +95,19 @@
             "access.token.claim": "true",
             "userinfo.token.claim": "true"
           }
+        },
+        {
+          "name": "ho-ten-viet-nam",
+          "protocol": "openid-connect",
+          "protocolMapper": "cty-vn-full-name-mapper",
+          "config": {
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
         }
-      ]
+      ],
+      "fullScopeAllowed": false
     },
     {
       "clientId": "hr-app",
@@ -159,8 +170,19 @@
             "access.token.claim": "true",
             "userinfo.token.claim": "true"
           }
+        },
+        {
+          "name": "ho-ten-viet-nam",
+          "protocol": "openid-connect",
+          "protocolMapper": "cty-vn-full-name-mapper",
+          "config": {
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
         }
-      ]
+      ],
+      "fullScopeAllowed": false
     },
     {
       "clientId": "web-a",
@@ -222,8 +244,19 @@
             "access.token.claim": "true",
             "userinfo.token.claim": "true"
           }
+        },
+        {
+          "name": "ho-ten-viet-nam",
+          "protocol": "openid-connect",
+          "protocolMapper": "cty-vn-full-name-mapper",
+          "config": {
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
         }
-      ]
+      ],
+      "fullScopeAllowed": false
     },
     {
       "clientId": "web-b",
@@ -285,8 +318,19 @@
             "access.token.claim": "true",
             "userinfo.token.claim": "true"
           }
+        },
+        {
+          "name": "ho-ten-viet-nam",
+          "protocol": "openid-connect",
+          "protocolMapper": "cty-vn-full-name-mapper",
+          "config": {
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
         }
-      ]
+      ],
+      "fullScopeAllowed": false
     }
   ],
   "users": [
