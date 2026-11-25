@@ -3,9 +3,9 @@
    ĐỔI MÀU THƯƠNG HIỆU: chỉ cần sửa các biến trong :root
    ========================================================== */
 :root {
-  --cty-primary: #0b5c8a;        /* màu chính: nút, link, khối thương hiệu */
-  --cty-primary-dark: #08476b;   /* màu khi rê chuột / đậm hơn */
-  --cty-accent: #f59e0b;         /* màu nhấn: chấm đầu dòng */
+  --cty-primary: #0047ab;        /* xanh chữ "vietlonghung": nút, link, khối thương hiệu */
+  --cty-primary-dark: #00337d;   /* màu khi rê chuột / đậm hơn */
+  --cty-accent: #e42528;         /* đỏ logo VLHC: chấm đầu dòng */
   --cty-bg: #f3f6f9;             /* nền trang */
   --cty-card: #ffffff;           /* nền thẻ form */
   --cty-text: #1f2937;
@@ -45,7 +45,7 @@ html.cty-html, body.cty-body {
 }
 .cty-brand-inner { max-width: 420px; }
 .cty-logo-row { display: flex; align-items: center; gap: 14px; margin-bottom: 40px; }
-.cty-logo { width: 52px; height: 52px; border-radius: 12px; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+.cty-logo { width: 56px; height: 56px; display: block; box-shadow: 0 4px 14px rgba(0,0,0,.25); }
 .cty-company { font-size: 18px; font-weight: 700; letter-spacing: .04em; }
 .cty-tagline { font-size: 28px; line-height: 1.3; font-weight: 600; margin: 0 0 24px; color: #fff; }
 .cty-features { list-style: none; padding: 0; margin: 0; }
@@ -105,7 +105,7 @@ html.cty-html, body.cty-body {
 .cty-card input:focus {
   outline: none;
   border-color: var(--cty-primary);
-  box-shadow: 0 0 0 3px rgba(11,92,138,.18);
+  box-shadow: 0 0 0 3px rgba(0,71,171,.18);
 }
 .cty-card .pf-c-form-control[aria-invalid="true"] { border-color: var(--cty-danger); }
 

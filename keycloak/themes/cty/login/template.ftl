@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow">
     <title>${msg("loginTitle",(realm.displayName!''))}</title>
-    <link rel="icon" type="image/svg+xml" href="${url.resourcesPath}/img/favicon.svg" />
+    <link rel="icon" type="image/png" href="${url.resourcesPath}/img/favicon.png" />
     <#if properties.stylesCommon?has_content>
         <#list properties.stylesCommon?split(' ') as style>
             <link href="${url.resourcesCommonPath}/${style}" rel="stylesheet" />
@@ -74,7 +74,7 @@
     <aside class="cty-brand" aria-label="${properties.ctyCompanyName!}">
         <div class="cty-brand-inner">
             <div class="cty-logo-row">
-                <img class="cty-logo" src="${url.resourcesPath}/img/logo.svg" alt="" />
+                <img class="cty-logo" src="${url.resourcesPath}/img/logo.png" alt="Logo ${properties.ctyCompanyName!}" />
                 <span class="cty-company">${properties.ctyCompanyName!}</span>
             </div>
             <h2 class="cty-tagline">${properties.ctyTagline!}</h2>
